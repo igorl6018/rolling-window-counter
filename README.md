@@ -36,3 +36,10 @@ The trade-off: the counter only knows what you tell it. There is no background t
 - **`count` must be a non-negative integer.** Fractional or negative values throw `RangeError` rather than silently corrupting the total. `record(0)` is allowed and is a no-op that still returns the current total.
 - **Same-timestamp records are summed.** Two `record(3)` calls at the same clock value produce one entry of `6`, not two entries of `3`. The returned count is identical either way.
 - **The injected clock can be rewound.** If you pass a clock that goes backward, entries whose timestamps are still `> now - window` survive. The library does not assume monotonic time; it only compares against whatever the clock returns. In production use `Date.now`, which is monotonic enough for this purpose.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
