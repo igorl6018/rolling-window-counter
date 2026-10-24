@@ -1,6 +1,6 @@
 {
   "name": "rolling-window-counter",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Maintains a count of events within a sliding time window of fixed duration by expiring stale entries on each record and read.",
   "type": "module",
   "main": "src/index.js",
